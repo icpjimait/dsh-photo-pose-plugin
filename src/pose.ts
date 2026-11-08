@@ -126,7 +126,7 @@ export function samplePoses(
   if (scenes.length > 0) {
     pool = poses.filter((p) => scenes.some((s) => p.scenes.includes(s)))
     if (pool.length === 0) {
-      throw new Error(`场景 ${scenes.join('/')} 下没有姿势（hint: 用 photo_pose_stats 看有哪些场景）`)
+      throw new Error(`场景 ${scenes.join('/')} 下没有姿势（hint: 用 photo_stats 看有哪些场景）`)
     }
   }
 

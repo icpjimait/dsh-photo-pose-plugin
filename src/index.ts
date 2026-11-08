@@ -22,9 +22,9 @@
  *
  * Tools (names are photo-specific so this plugin never collides with the
  * private novel pose plugin when both are installed in one profile):
- *   sample_photo_pose — 按场景随机抽 N 个摄影姿势（动作要领 + 拍摄建议），
+ *   photo — 按场景随机抽 N 个摄影姿势（动作要领 + 拍摄建议），
  *                 默认冷却期去重（排除最近 10 次），写 used.log。
- *   photo_pose_stats  — 库总量 / 历史抽取 / 按场景 / 按氛围。
+ *   photo_stats  — 库总量 / 历史抽取 / 按场景 / 按氛围。
  * Deliberately NO reset tool: the model must never be able to wipe used.log.
  */
 import type { Context } from '@deepseek-ai/cordis'
@@ -46,9 +46,9 @@ export const inject = ['tools']
 export function apply(ctx: Context) {
   ctx.tools.register(
     defineTool({
-      name: 'sample_photo_pose',
+      name: 'photo',
       description:
-        '从摄影姿势库按场景随机抽取拍摄姿势参考（动作要领+拍摄建议），默认冷却期去重，抽到的自动记入 used.log。拍人像、写真、情侣、闺蜜、亲子、街拍、运动、商务不知道摆什么姿势、想换个场景时调用。',
+        '【摄影动作画面】从摄影姿势库按场景随机抽取拍摄姿势参考（动作要领+拍摄建议），默认冷却期去重，抽到的自动记入 used.log。拍人像、写真、情侣、闺蜜、亲子、街拍、运动、商务不知道摆什么姿势、想换个场景时调用。',
       parameters: {
         scene: { type: 'string', description: '限定场景，如 海边 / 咖啡馆 / 校园 / 黄昏日落。不填则任意场景。' },
         n: { type: 'number', description: '抽取个数，默认 3。' },
@@ -86,8 +86,8 @@ export function apply(ctx: Context) {
 
   ctx.tools.register(
     defineTool({
-      name: 'photo_pose_stats',
-      description: '查看摄影姿势库统计：总量、历史抽取次数、按场景和按氛围分布。不知道有哪些场景可用时先调这个。',
+      name: 'photo_stats',
+      description: '【摄影动作画面】查看摄影姿势库统计：总量、历史抽取次数、按场景和按氛围分布。不知道有哪些场景可用时先调这个。',
       parameters: {},
       output: {
         schema: { type: 'string' },
